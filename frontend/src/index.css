@@ -1,0 +1,171 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@import "tailwindcss";
+@config "../tailwind.config.js";
+
+:root {
+  --primary: #6366f1;
+  --primary-glow: rgba(99, 102, 241, 0.15);
+  --secondary: #10b981;
+  --accent: #f59e0b;
+  --danger: #ef4444;
+  --glass: rgba(255, 255, 255, 0.8);
+  --glass-border: rgba(255, 255, 255, 0.2);
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+@layer base {
+  body {
+    @apply bg-slate-50 text-slate-900 font-sans selection:bg-indigo-100 selection:text-indigo-700;
+    font-family: 'Outfit', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+@layer components {
+
+  /* Premium Glassmorphism Cards */
+  .glass-card {
+    @apply bg-white/80 backdrop-blur-xl border border-white/20 rounded-2xl shadow-xl transition-all duration-300;
+  }
+
+  .glass-card:hover {
+    @apply shadow-2xl scale-[1.005];
+  }
+
+  /* Pro Buttons */
+  .btn {
+    @apply px-6 py-3 rounded-xl font-semibold transition-all duration-300 flex items-center justify-center gap-2 active:scale-95 disabled:opacity-50 disabled:pointer-events-none;
+  }
+
+  .btn-primary {
+    @apply bg-indigo-600 text-white shadow-lg shadow-indigo-200 hover:bg-indigo-700 hover:shadow-indigo-300 hover:-translate-y-0.5;
+  }
+
+  .btn-secondary {
+    @apply bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 hover:border-slate-300 hover:shadow-md;
+  }
+
+  .btn-danger {
+    @apply bg-rose-500 text-white shadow-lg shadow-rose-200 hover:bg-rose-600 hover:shadow-rose-300;
+  }
+
+  .btn-ghost {
+    @apply bg-transparent text-slate-600 hover:bg-slate-100;
+  }
+
+  /* Professional Inputs */
+  .input-label {
+    @apply block text-sm font-bold text-slate-500 uppercase tracking-wider mb-2;
+  }
+
+  .input {
+    @apply w-full px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl focus:bg-white focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 outline-none transition-all duration-200 placeholder:text-slate-400 font-medium;
+  }
+
+  /* Table styling */
+  .pro-table-wrapper {
+    @apply overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-lg overflow-x-auto;
+  }
+
+  .pro-table {
+    @apply w-full text-left border-collapse;
+  }
+
+  .pro-table thead {
+    @apply bg-slate-50/80 border-b border-slate-200;
+  }
+
+  .pro-table th {
+    @apply px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-widest;
+  }
+
+  .pro-table td {
+    @apply px-6 py-4 text-sm text-slate-600 border-b border-slate-50 transition-colors;
+  }
+
+  .pro-table tr:last-child td {
+    @apply border-b-0;
+  }
+
+  .pro-table tr:hover td {
+    @apply bg-slate-50/50;
+  }
+
+  /* Badges */
+  .pro-badge {
+    @apply px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest inline-flex items-center gap-1.5;
+  }
+
+  .badge-success {
+    @apply bg-emerald-50 text-emerald-700 border border-emerald-100;
+  }
+
+  .badge-warning {
+    @apply bg-amber-50 text-amber-700 border border-amber-100;
+  }
+
+  .badge-danger {
+    @apply bg-rose-50 text-rose-700 border border-rose-100;
+  }
+
+  .badge-info {
+    @apply bg-blue-50 text-blue-700 border border-blue-100;
+  }
+
+  /* Tab styling */
+  .tab-btn {
+    @apply relative py-4 px-2 text-sm font-bold transition-all duration-300 hover:text-indigo-600;
+  }
+
+  .tab-btn.active {
+    @apply text-indigo-600;
+  }
+
+  .tab-btn.active::after {
+    content: '';
+    @apply absolute bottom-0 left-0 w-full h-1 bg-indigo-600 rounded-t-full;
+  }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-slate-200 rounded-full hover:bg-slate-300 transition-colors;
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Glass effect for Stats */
+.stat-card {
+  @apply relative p-6 rounded-3xl overflow-hidden bg-white/80 backdrop-blur-xl border border-white/20 shadow-xl transition-all duration-300;
+}
+
+.stat-glow {
+  @apply absolute -right-4 -top-4 w-24 h-24 blur-3xl rounded-full opacity-20;
+}
