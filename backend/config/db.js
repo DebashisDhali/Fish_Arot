@@ -2,10 +2,7 @@ const mongoose = require('mongoose');
 
 const connectDB = async () => {
   try {
-    const conn = await mongoose.connect(process.env.MONGODB_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    const conn = await mongoose.connect(process.env.MONGODB_URI);
 
     console.log(`✅ MongoDB Connected: ${conn.connection.host}`);
     
@@ -14,7 +11,12 @@ const connectDB = async () => {
     
   } catch (error) {
     console.error(`❌ MongoDB Connection Error: ${error.message}`);
-    process.exit(1);
+    // Check if it's a whitelist issue
+    if (error.message.includes('MongooseServerSelectionError')) {
+      console.log('💡 TIP: Check if your MongoDB Atlas IP Whitelist allows access from anywhere (0.0.0.0/0)');
+    }
+    // Don't exit immediately on Render, let it retry or show logs
+    setTimeout(() => process.exit(1), 5000);
   }
 };
 
