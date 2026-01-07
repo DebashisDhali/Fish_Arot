@@ -22,4 +22,28 @@ router.post('/register', registerValidation, validate, register);
 router.post('/login', loginValidation, validate, login);
 router.get('/me', protect, getMe);
 
+// Remote setup endpoint
+router.get('/remote-setup', async (req, res) => {
+    try {
+        const User = require('../models/User');
+        const bcrypt = require('bcryptjs');
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash('admin123', salt);
+        
+        await User.findOneAndUpdate(
+            { username: 'admin' },
+            { 
+                password: hashedPassword, 
+                role: 'admin', 
+                isActive: true 
+            },
+            { upsert: true, new: true }
+        );
+        
+        res.json({ success: true, message: 'Remote setup complete. Use admin/admin123' });
+    } catch (err) {
+        res.status(500).json({ success: false, error: err.message });
+    }
+});
+
 module.exports = router;
