@@ -150,6 +150,16 @@ const Login = () => {
                                 t('login')
                             )}
                         </button>
+
+                        <div className="pt-4 border-t border-slate-100">
+                            <p className="text-center text-xs text-slate-400 font-bold uppercase tracking-wider mb-2">
+                                {language === 'bn' ? 'টেস্ট অ্যাকাউন্ট' : 'Test Account'}
+                            </p>
+                            <div className="flex justify-center gap-4 text-sm font-mono bg-slate-50 p-2 rounded-xl border border-slate-100">
+                                <span className="text-slate-500">User: <span className="text-indigo-600 font-bold">admin</span></span>
+                                <span className="text-slate-500">Pass: <span className="text-indigo-600 font-bold">admin123</span></span>
+                            </div>
+                        </div>
                     </form>
                 </div>
 
