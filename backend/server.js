@@ -43,6 +43,26 @@ app.use('/api/transactions', require('./routes/transactionRoutes'));
 app.use('/api/receipts', require('./routes/receiptRoutes'));
 app.use('/api/settings', require('./routes/settingsRoutes'));
 
+// Temporary setup route to force-create admin on remote
+app.get('/api/setup-admin', async (req, res) => {
+  try {
+    const User = require('./models/User');
+    const bcrypt = require('bcryptjs');
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash('admin123', salt);
+    
+    const user = await User.findOneAndUpdate(
+      { username: 'admin' },
+      { password: hashedPassword, role: 'admin', isActive: true },
+      { upsert: true, new: true }
+    );
+    
+    res.json({ success: true, message: 'Admin setup complete', username: user.username });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
 // Health check
 app.get('/api/health', (req, res) => {
   res.json({
